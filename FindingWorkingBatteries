@@ -1,0 +1,125 @@
+
+
+
+
+
+combinations_str="""bbbbgggg
+bbbgbggg
+bbbggbgg
+bbbgggbg
+bbbggggb
+bbgbbggg
+bbgbgbgg
+bbgbggbg
+bbgbgggb
+bbggbbgg
+bbggbgbg
+bbggbggb
+bbgggbbg
+bbgggbgb
+bbggggbb
+bgbbbggg
+bgbbgbgg
+bgbbggbg
+bgbbgggb
+bgbgbbgg
+bgbgbgbg
+bgbgbggb
+bgbggbbg
+bgbggbgb
+bgbgggbb
+bggbbbgg
+bggbbgbg
+bggbbggb
+bggbgbbg
+bggbgbgb
+bggbggbb
+bgggbbbg
+bgggbbgb
+bgggbgbb
+bggggbbb
+gbbbgggg
+gbbgbggg
+gbbggbgg
+gbbgggbg
+gbbggggb
+gbgbbggg
+gbgbgbgg
+gbgbggbg
+gbgbgggb
+gbggbbgg
+gbggbgbg
+gbggbggb
+gbgggbbg
+gbgggbgb
+gbggggbb
+ggbbbggg
+ggbbgbgg
+ggbbggbg
+ggbbgggb
+ggbgbbgg
+ggbgbgbg
+ggbgbggb
+ggbggbbg
+ggbggbgb
+ggbgggbb
+gggbbbgg
+gggbbgbg
+gggbbggb
+gggbgbbg
+gggbgbgb
+gggbggbb
+ggggbbbg
+ggggbbgb
+ggggbgbb
+gggggbbb"""
+inputs = combinations_str.split('\n')
+
+def split_seq(s):
+    chunks=[]
+    for i in range(0,len(arr),3):
+        chunks.append(i:i+3)
+    return chunks
+    
+
+    
+def find_working_pair(input_sequences):
+    
+    for i in input_sequences:
+        tries,trues=0,0
+        print(f'Battery sequence:{i}')
+        for j in split_seq(i):
+            trues=trues+1 if j=='gg' else trues
+            print(f'Battery pair:{j} | Test result:{'Light ON' if j=='gg' else 'Light OFF'}')
+            tries=tries+1
+            if(trues>0):
+                break
+        if(trues==0):
+            partial_sequences=[i[0:4]]+[i[4:]]
+            print(f'partial sequences:{partial_sequences}')
+            
+            for h in partial_sequences:
+                print(f'half sequence:{h}')
+                #swap one element from each half pair of the half sequence
+                swapped_sequence1=h[0]+h[2]
+                swapped_sequence2=h[1]+h[3]
+                swapped_sequences=[swapped_sequence1,swapped_sequence2]
+                print(f'swapped sequences:{swapped_sequences}')
+                for s in swapped_sequences:
+                    tries=tries+1
+                    trues=trues+1 if s=='gg' else trues
+                    if(trues>0):
+                        break
+                if(trues>0):
+                    break
+           
+        print(f'Total tries till Light ON: {tries}')
+       
+        print('\n__________________________________________')
+      
+   
+        
+        
+find_working_pair(inputs)
+
+
